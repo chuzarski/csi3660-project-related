@@ -105,3 +105,15 @@ The following command was issued to test out database backups
 ```
 mariadb-dump -u forumdbbak -p79ce77fc-48ad-11ec-81d3-0242ac130003 --lock-tables --databases forumdb > ./test-backup.sql
 ```
+
+
+## Backup disk
+
+There is another disk that is mounted to the backup directory. 
+
+Its a standard persistent disk attatched to the VM. The disk was partitioned using `cgdisk` and formatted with `mkfs.ext4`
+
+all backups live on /dev/sdb1
+
+/dev/sdb1 has an entry in fstab and is mounted at /usr/local/CSI3660ProjectBackup
+the [fstab(5) manpage](https://manpages.debian.org/bullseye/mount/fstab.5.en.html) was referenced for the entry
