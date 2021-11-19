@@ -10,7 +10,7 @@ MARIADB_PASSWORD=79ce77fc-48ad-11ec-81d3-0242ac130003
 # Directory path configuration
 BACKUP_TMP_DIR=/tmp/backups/
 PHPBB_ROOT=/var/www/html/forum
-BACKUP_ROOT=$BACKUP_TMP_DIR
+BACKUP_ROOT=/usr/local/CSI3660ProjectBackup
 
 # The remaining variables aren't configuration variables
 
@@ -33,4 +33,4 @@ mariadb-dump -u $MARIADB_USER -p$MARIADB_PASSWORD --lock-tables --databases $MAR
 tar czf $BACKUP_ROOT/$backup_name.tar.gz $database_backup_file $PHPBB_ROOT
 
 # Clean up
-# rm -rf $backup_tmp_root
+rm -rf $backup_tmp_root
