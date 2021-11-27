@@ -1,6 +1,10 @@
 #!/usr/bin/bash
 
-# configuration variables
+# Author: Cody Huzarski
+
+# This script will backup the mariadb database and all files for the phpBB installation. 
+# Variables are used to configure different elements of the script (backup directory, phpBB location, db credentials)
+# Backups are made using tar archives and compressed using gzip
 
 # MariaDB configuration
 MARIADB_DB=forumdb
@@ -12,7 +16,11 @@ BACKUP_TMP_DIR=/tmp/backups/
 PHPBB_ROOT=/var/www/html/forum
 BACKUP_ROOT=/usr/local/CSI3660ProjectBackup
 
+# -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/
+#
 # The remaining variables aren't configuration variables
+#
+# -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/
 
 # Generate a backup name. This will be used for the directory and for the archive
 backup_name=service-backup-$(date -I)
@@ -21,15 +29,16 @@ backup_name=service-backup-$(date -I)
 # Here the date manpage was referenced to generate this date command
 backup_tmp_root=$BACKUP_TMP_DIR/$backup_name/
 
+# Create variable for backup sql file location
+database_backup_file=$backup_tmp_root/database-$backup_name.sql
+
 # Create the directory
 mkdir -p $backup_tmp_root
 
-# Backup database
-database_backup_file=$backup_tmp_root/database-$backup_name.sql
-
+# Backup database to sql file
 mariadb-dump -u $MARIADB_USER -p$MARIADB_PASSWORD --lock-tables --databases $MARIADB_DB > $database_backup_file
 
-# Archive everything DB backup and phpBB
+# Archive everything: DB backup and phpBB file root
 tar czf $BACKUP_ROOT/$backup_name.tar.gz $database_backup_file $PHPBB_ROOT
 
 # Clean up
