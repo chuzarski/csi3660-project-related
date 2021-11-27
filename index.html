@@ -52,11 +52,24 @@
             margin: 0 auto;
         }
 
+        a {
+            text-decoration: none;
+            color: #edf2f4ff;
+            font-family: 'Noto Sans', sans-serif;
+            transition: all 250ms;
+        }
+
+        a:hover {
+            font-weight: bold;
+            color: #8d99aeff;
+        }
+
         a.button {
             padding: 8px 10px;
             border-radius: 5px;
             color: #edf2f4ff;
             text-decoration: none;
+            font-family: 'Noto Sans', sans-serif;
         }
 
         a.button.primary {
@@ -83,6 +96,14 @@
 
         a.button.large {
             font-size: large;
+        }
+
+        ul {
+            line-height: 2;
+        }
+
+        ul.nostyle {
+            list-style-type: none;
         }
 
         .content-container {
@@ -154,7 +175,7 @@
 
     <div class="content-container">
         <header>
-            <h1>Final Project</h1>
+            <h1>CSI-3660 Final Project</h1>
             <h2>Cody Huzarski</h2>
     
             <nav>
@@ -163,78 +184,85 @@
         </header>
 
         <main>
+
+            <!-- Summary Section -->
             <section class="content-section">
                 <div class="section-header">
-                    <h2>Section Header</h2>
+                    <h2>Summary</h2>
                 </div>
                 <div class="section-content">
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, exercitationem. Aut, repellendus provident velit accusantium beatae adipisci saepe iusto minima, nemo soluta, natus sunt reiciendis illum sit distinctio corrupti quia.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, exercitationem. Aut, repellendus provident velit accusantium beatae adipisci saepe iusto minima, nemo soluta, natus sunt reiciendis illum sit distinctio corrupti quia.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, exercitationem. Aut, repellendus provident velit accusantium beatae adipisci saepe iusto minima, nemo soluta, natus sunt reiciendis illum sit distinctio corrupti quia.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, exercitationem. Aut, repellendus provident velit accusantium beatae adipisci saepe iusto minima, nemo soluta, natus sunt reiciendis illum sit distinctio corrupti quia.
+                        For this project, I deployed a forum board for the video game Borderlands using the phpBB bulletin board software. The service exists as a web application to host a community of Borderlands players.
+                        The service mainly consists of the following software:
+                        <ul class="nostyle">
+                            <li><a href="https://httpd.apache.org/" target="_blank">Apache httpd</a></li>
+                            <li><a href="https://mariadb.com/" target="_blank">MariaDB</a></li>
+                            <li><a href="https://www.phpbb.com/" target="_blank">phpBB</a></li>
+                        </ul>
                     </p>
                 </div>
-                <div class="section-foot">
-                    <a href="#" class="button primary">Primary Button</a>
-                    <a href="#" class="button secondary">Primary Button</a>
+
+            </section>
+
+            <!-- References section -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>References</h2>
+                </div>
+                <div class="section-content">
+                    <p>
+                        The following was referenced to complete this project:
+                        <ul>
+                            <li> General References
+                                <ul>
+                                    <li><a href="https://wiki.debian.org/LaMp" target="_blank">Debian Wiki - LAMP</a></li>
+                                    <li><a href="https://manpages.debian.org/bullseye/mount/fstab.5.en.html" target="_blank">fstab(5) manpage for fstab entry for the backup partition</a></li>
+                                </ul>
+                            </li>
+                            <li>References for MariaDB:
+                                <ul>
+                                    <li><a href="https://mariadb.com/kb/en/create-database/" target="_blank">Database Creation - MariaDB Documentation</a></li>
+                                    <li><a href="https://mariadb.com/kb/en/create-user/" target="_blank">User Creation - MariaDB Documentation</a></li>
+                                    <li><a href="https://mariadb.com/kb/en/grant/" target="_blank">User permissions - MariaDB Documentation</a></li>
+                                    <li><a href="https://mariadb.com/kb/en/making-backups-with-mysqldump/" target="_blank">MariaDB Backups</a></li>
+                                </ul>
+                            </li>
+                            <li> References for phpBB
+                                <ul>
+                                    <li><a href="https://www.phpbb.com/support/docs/en/3.3/ug/quickstart/installation_intro/" target="_blank">phpBB User Guide - Installation</a></li>
+                                    <li><a href="https://www.phpbb.com/support/docs/en/3.0/kb/article/phpbb3-chmod-permissions/" target="_blank">Setting correct permissions for phpBB</a></li>
+                                </ul>
+
+                            </li>
+
+                        </ul>
+
+                    </p>
                 </div>
             </section>
 
 
-            <section class="content-section">
-                <div class="section-header">
-                    <h2>Section Header</h2>
-                </div>
-                <div class="section-content">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, exercitationem. Aut, repellendus provident velit accusantium beatae adipisci saepe iusto minima, nemo soluta, natus sunt reiciendis illum sit distinctio corrupti quia.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, exercitationem. Aut, repellendus provident velit accusantium beatae adipisci saepe iusto minima, nemo soluta, natus sunt reiciendis illum sit distinctio corrupti quia.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, exercitationem. Aut, repellendus provident velit accusantium beatae adipisci saepe iusto minima, nemo soluta, natus sunt reiciendis illum sit distinctio corrupti quia.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, exercitationem. Aut, repellendus provident velit accusantium beatae adipisci saepe iusto minima, nemo soluta, natus sunt reiciendis illum sit distinctio corrupti quia.
-                    </p>
-                </div>
-                <div class="section-foot">
-                    <a href="#" class="button primary">Primary Button</a>
-                    <a href="#" class="button secondary">Primary Button</a>
-                </div>
-            </section>
+            <!-- SECTION Template
 
             <section class="content-section">
                 <div class="section-header">
-                    <h2>Section Header</h2>
+                    <h2>Section Template</h2>
                 </div>
                 <div class="section-content">
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, exercitationem. Aut, repellendus provident velit accusantium beatae adipisci saepe iusto minima, nemo soluta, natus sunt reiciendis illum sit distinctio corrupti quia.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, exercitationem. Aut, repellendus provident velit accusantium beatae adipisci saepe iusto minima, nemo soluta, natus sunt reiciendis illum sit distinctio corrupti quia.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, exercitationem. Aut, repellendus provident velit accusantium beatae adipisci saepe iusto minima, nemo soluta, natus sunt reiciendis illum sit distinctio corrupti quia.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, exercitationem. Aut, repellendus provident velit accusantium beatae adipisci saepe iusto minima, nemo soluta, natus sunt reiciendis illum sit distinctio corrupti quia.
+
+                        Section Template
+
                     </p>
                 </div>
                 <div class="section-foot">
                     <a href="#" class="button primary">Primary Button</a>
-                    <a href="#" class="button secondary">Primary Button</a>
+                    <a href="#" class="button secondary">Secondary Button</a>
                 </div>
             </section>
 
-            <section class="content-section">
-                <div class="section-header">
-                    <h2>Section Header</h2>
-                </div>
-                <div class="section-content">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, exercitationem. Aut, repellendus provident velit accusantium beatae adipisci saepe iusto minima, nemo soluta, natus sunt reiciendis illum sit distinctio corrupti quia.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, exercitationem. Aut, repellendus provident velit accusantium beatae adipisci saepe iusto minima, nemo soluta, natus sunt reiciendis illum sit distinctio corrupti quia.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, exercitationem. Aut, repellendus provident velit accusantium beatae adipisci saepe iusto minima, nemo soluta, natus sunt reiciendis illum sit distinctio corrupti quia.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, exercitationem. Aut, repellendus provident velit accusantium beatae adipisci saepe iusto minima, nemo soluta, natus sunt reiciendis illum sit distinctio corrupti quia.
-                    </p>
-                </div>
-                <div class="section-foot">
-                    <a href="#" class="button primary">Primary Button</a>
-                    <a href="#" class="button secondary">Primary Button</a>
-                </div>
-            </section>
+            -->
+
         </main>
         <footer>
 
