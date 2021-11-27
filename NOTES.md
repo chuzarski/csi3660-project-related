@@ -78,6 +78,13 @@ https://www.phpbb.com/support/docs/en/3.0/kb/article/phpbb3-chmod-permissions/
 
 # Backups
 
+The backup script is located at /usr/local/bin/service-backup.sh
+
+Backups are saved to `/usr/local/CSI3660ProjectBackup`
+
+This directory is owned by the user `backups` and the group `backups`
+
+It is intended for the backup script to be executed by the user `backups`
 
 ## Database
 
