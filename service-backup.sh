@@ -15,6 +15,7 @@ MARIADB_PASSWORD=79ce77fc-48ad-11ec-81d3-0242ac130003
 BACKUP_TMP_DIR=/tmp/backups/
 PHPBB_ROOT=/var/www/html/forum
 BACKUP_ROOT=/usr/local/CSI3660ProjectBackup
+LOG_FILE=/var/log/service-backups/backups.log
 
 # -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/
 #
@@ -39,7 +40,10 @@ mkdir -p $backup_tmp_root
 mariadb-dump -u $MARIADB_USER -p$MARIADB_PASSWORD --lock-tables --databases $MARIADB_DB > $database_backup_file
 
 # Archive everything: DB backup and phpBB file root
-tar czf $BACKUP_ROOT/$backup_name.tar.gz $database_backup_file $PHPBB_ROOT
+tar czf $BACKUP_ROOT/$backup_name.tar.gz $database_backup_file $PHPBB_ROOT 2>/dev/null
 
 # Clean up
 rm -rf $backup_tmp_root
+
+# Log the backup
+logger -p local7.info "Backup completed"

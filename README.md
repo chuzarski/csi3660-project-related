@@ -14,6 +14,6 @@
     - [X] Must have webpage
     - [X] Project Summary
     - [ ] Project overview
-    - [ ] Group members (not applicable to me)
+    - [X] Group members (not applicable to me)
     - [ ] Screenshot of service
     - [ ] References

@@ -73,9 +73,6 @@ from there, navigating to <SERVERIP>/forum comes to a guided install script
 This was referenced to set the correct permissions for phpbb:
 https://www.phpbb.com/support/docs/en/3.0/kb/article/phpbb3-chmod-permissions/
 
-
-
-
 # Backups
 
 The backup script is located at /usr/local/bin/service-backup.sh
@@ -132,3 +129,10 @@ a 'user' group and 'admin' group was created.
 
 The owning group of `/var/www/` was changed recursively to 'admin' along with the permissions 'rwxrwxr-x' therefore, all users in the admin group have full permissions in the 
 `/var/www/` folder.
+
+## Logging
+
+Logging with the backup script is conducted through rsyslog.
+/etc/rsyslog.conf has an entry for the 'local7' facility which will log messages to /var/log/backups.log
+
+SO: All backup logs are in /var/log/backups.log
