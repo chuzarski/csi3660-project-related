@@ -49,7 +49,14 @@
         }
 
         header nav {
-            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        header nav .button {
+            margin: 0.5em;
         }
 
         a {
@@ -132,6 +139,7 @@
             margin-top: 30px;
         }
 
+        /* Tablets and up */
         @media screen and (min-width: 768px) {
 
             header h1 {
@@ -140,6 +148,14 @@
 
             header h2 {
                 font-size: 2rem;
+            }
+
+            header nav {
+            flex-direction: row;
+            }
+
+            header nav .button {
+                margin: 0 0.2em 0 0.2em;
             }
 
             a.button.large {
@@ -163,6 +179,7 @@
             }
         }
 
+        /* Desktop */
         @media screen and (min-width: 960px) {
             .content-container {
                 width: 80%;
@@ -179,7 +196,9 @@
             <h2>Cody Huzarski</h2>
     
             <nav>
+                <a href="#" target="_blank" class="button secondary large">Related Github</a>
                 <a href="http://www.csi3660.chuzarski.net/forum/" target="_blank" class="button primary large">Go to Forum!</a>
+                <a href="#" target="_blank" class="button secondary large">View Presentation</a>
             </nav>
         </header>
 
@@ -217,6 +236,7 @@
                                 <ul>
                                     <li><a href="https://wiki.debian.org/LaMp" target="_blank">Debian Wiki - LAMP</a></li>
                                     <li><a href="https://manpages.debian.org/bullseye/mount/fstab.5.en.html" target="_blank">fstab(5) manpage for fstab entry for the backup partition</a></li>
+                                    <li><a href="https://developer.mozilla.org/en-US/docs/Web" target="_blank">Mozilla Developer Network - HTML/CSS Reference</a></li>
                                 </ul>
                             </li>
                             <li>References for MariaDB:

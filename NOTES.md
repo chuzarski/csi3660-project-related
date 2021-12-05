@@ -124,3 +124,11 @@ all backups live on /dev/sdb1
 
 /dev/sdb1 has an entry in fstab and is mounted at /usr/local/CSI3660ProjectBackup
 the [fstab(5) manpage](https://manpages.debian.org/bullseye/mount/fstab.5.en.html) was referenced for the entry
+
+
+## Groups/Permissions
+
+a 'user' group and 'admin' group was created.
+
+The owning group of `/var/www/` was changed recursively to 'admin' along with the permissions 'rwxrwxr-x' therefore, all users in the admin group have full permissions in the 
+`/var/www/` folder.
