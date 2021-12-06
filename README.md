@@ -1,5 +1,8 @@
 # Project Checklist
 
+
+This repository holds scripts and files related to my CSI-3600 Final project
+
 - Service In General
     - [X] Working service
     - [X] At least one admin group and one normal user group
@@ -13,7 +16,7 @@
 - Webpage
     - [X] Must have webpage
     - [X] Project Summary
-    - [ ] Project overview
+    - [X] Project overview
     - [X] Group members (not applicable to me)
-    - [ ] Screenshot of service
-    - [ ] References
+    - [X] Screenshot of service
+    - [X] References
