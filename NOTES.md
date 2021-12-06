@@ -7,7 +7,7 @@ TASKS:
   * [ - ] Internal phpBB setup
 * [ - ] Backup phpBB user content (script)
 * [ - ] Backup MySQL database (script)
-* [ - ] Monitor system upgrades using apt-unattended
+* [ - ] Log Backups
 
 
 # Notes for each task
@@ -79,7 +79,7 @@ The backup script is located at /usr/local/bin/service-backup.sh
 
 Backups are saved to `/usr/local/CSI3660ProjectBackup`
 
-This directory is owned by the user `backups` and the group `backups`
+This directory is owned by the user `backups` and the group `admin`
 
 It is intended for the backup script to be executed by the user `backups`
 

@@ -113,6 +113,16 @@
             list-style-type: none;
         }
 
+        span.obvious {
+            box-sizing: border-box;
+            border-radius: 6px;
+            /*background-color: #03045e;*/
+            /*background-color: #212529;*/
+            background-color: #202232;
+            color: #d90429ff;
+            padding: 3px;
+        }
+
         .content-container {
             margin: 0 auto;
         }
@@ -133,10 +143,6 @@
 
         .section-content {
             padding: 15px;
-        }
-
-        .section-foot {
-            margin-top: 30px;
         }
 
         /* Tablets and up */
@@ -211,16 +217,119 @@
                 </div>
                 <div class="section-content">
                     <p>
-                        For this project, I deployed a forum board for the video game Borderlands using the phpBB bulletin board software. The service exists as a web application to host a community of Borderlands players.
-                        The service mainly consists of the following software:
+                        For this project, I deployed a forum board for the video game Borderlands using the phpBB bulletin board software.
+                        The service runs on <a href="https://www.debian.org/" target="_blank">Debian Linux</a> and mainly consists of the following software:
                         <ul class="nostyle">
-                            <li><a href="https://httpd.apache.org/" target="_blank">Apache httpd</a></li>
+                            <li><a href="https://httpd.apache.org/" target="_blank">Apache 2</a></li>
+                            <li><a href="https://www.php.net/" target="_blank">PHP</a></li>
                             <li><a href="https://mariadb.com/" target="_blank">MariaDB</a></li>
                             <li><a href="https://www.phpbb.com/" target="_blank">phpBB</a></li>
                         </ul>
                     </p>
                 </div>
 
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>Background</h2>
+                </div>
+                <div class="section-content">
+                    <p>
+                        This project is a web server that hosts a forum message board that is centered around the video game Borderlands. Users can discuss topics related to the video game. The forum board itself is using the <b>phpBB</b> forum board software. As the name suggests, phpBB requires PHP, a webserver (like Apache or Nginx) and a database (Mysql, MariaDB or Postgres). Thus, this server is running both Apache 2 and MariaDB. 
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>Overview</h2>
+                </div>
+                <div class="section-content">
+
+                    <p>The implemented service uses Apache 2 as a webserver, MariaDB as a database and phpBB for the forum. Backups are ran every morning at 2:25 AM using a backup script executed by the cron daemon.</p>
+                    <h3>Backups</h3>
+                    <p>
+                        Both the root directory of the phpBB installation and the MariaDB database for phpBB are backed up.
+                        The backups are stored in a tar archive which is gzip compressed and stored in <span class="obvious">/usr/local/CSI3660ProjectBackup</span>. Tar archives are used since it is a simple solution for backups.
+                    </p>
+                    <ul>
+                        <li>phpBB root directory</li>
+                            <ul>
+                                <li>All files are backed up since these files could change over time - themes or extensions could be installed to phpBB</li>
+                            </ul>
+                        <li>MariaDB Database</li>
+                        <ul>
+                            <li>The database is backed up to an sql file using <span class="obvious">mariadb-backup</span></li>
+                        </ul>
+                    </ul>
+
+                    <p>Both the phpBB root directory (<span class="obvious">/var/www/html/forum</span>) and the MariaDB sql file is archived and gzipped to reduce storage requirements.
+                        All Backup files are labeled with the following pattern: <span class="obvious">service-backup-(yyyy-mm-dd)</span></p>
+                    <p>The <span class="obvious">/usr/local/CSI3660ProjectBackup</span> directory is another partition on a drive seperate from the system drive.
+                        This is to ensure that the backups will be safe from hard drive failure of the main system drive. The directory
+                        is automatically mounted at boot due to the corresponding <span class="obvious">/etc/fstab/</span> entry.</p>
+                    <p>Backups are conducted by the script located at <span class="obvious">/usr/local/bin/service-backup.sh</span>
+                        This script is called by the cron daemon daily at 2:25 AM. The backups are ran as the user <span class="obvious">backups</span>.
+                        Daily backups ensure that the service is able to recover to a recent point of state in case of a failure.</p>
+                    <p>The backup directory is owned by the user <span class="obvious">backups</span> and the group <span class="obvious">admin</span> such that only the <span class="obvious">backups</span>
+                        user and <span class="obvious">admin</span> users can modify backup files (that is, they are safe from being deleted by regular users).
+                        </p>
+                    <p>Finally, the backup script will log backup success using rsyslog. These logs are stored in <span class="obvious">/var/log/backups.log</span></p>
+                
+                    <h3>Backup Disk</h3>
+                    <p>The backup disk was created and attached to the VM during VM creation. For my machine, the disk was attached as <span class="obvious">/dev/sdb1</span>. The disk was partitioned using <span class="obvious">cgdisk</span> and formatted with <span class="obvious">mkfs.ext4</span>. 
+                    Afterward, the disk can be mounted. An entry in <span class="obvious">/etc/fstab</span> was added to automatically mount the disk at boot time on the directory <span class="obvious">/usr/local/CSI3660ProjectBackup</span>.
+                    </p>
+
+                    <h3>Users and Groups</h3>
+                    <p>There are two user groups, admin and users and one special backups user.</p>
+                    <ul>
+                        <li>Groups</li>
+                        <ul>
+                            <li>admin - Users in this group are able to modify the files that are in <span class="obvious">/var/www/html</span>. These files are protected from other users on the server. Additionally, admin users can modify backup files.</li>
+                            <li>users - Users in this group are normal unprivileged users.</li>
+                        </ul>
+                        <li>Users</li>
+                        <ul>
+                            <li>backups - This user is specifically for running the backup script. This user has full permissions over the backup directory, thus can save the backups to that directory. <em>Note:</em> backups is not a part of the admin group - since the backup user doesn't require write access to the web server document root.</li>
+                        </ul>
+                    </ul>
+                    <h3>Apache</h3>
+                    <p>Under Debian, Apache is simply installed using <span class="obvious">apt install apache2</span>. For the most part, it works out of the box. The only change I made was changing group ownership of the <span class="obvious">/var/www/html</span> directory to <span class="obvious">admin</span> so that admin users can modify files.</p>
+
+                    <h3>PHP</h3>
+                    <p>Similarly, PHP is pretty straight-forward to setup. <span class="obvious">apt install php php-mysql</span> will install what is generally required. The Apache module for PHP is automatically pulled in as a dependency. phpBB requires a few extra modules for php, these can be installed by issuing <span class="obvious">apt install php-mbstring php-xml</span></p>
+                
+                    <h3>MariaDB</h3>
+                    <p>MariaDB is installed by issuing <span class="obvious">apt install default-mysql-server default-mysql-client</span>. Debian resolves default-mysql-server to MariaDB automatically. Running <span class="obvious">mysql_secure_installation</span> finishes installation of MariaDB</p>
+                    <p>Afterward, a database and user for phpBB need to be created. It's bad practice to use the root database user for applications, so a user is created specifically for phpBB</p>
+                    
+                    <p>The database can be accessed using the mariadb database client, by executing <span class="obvious">mariadb -u root -p</span>. The following queries will create the forum board user and database</p>
+                    <ul class="nostyle">
+                        <li>Create database - <span class="obvious">CREATE DATABASE forumdb;</span></li>
+                        <li>Create user - <span class="obvious">CREATE USER user@localhost IDENTIFIED BY '---A VERY STRONG PASSWORD---';</span></li>
+                        <li>Grant user priveleges for database: <span class="obvious">GRANT ALL PRIVILEGES ON `forumdb`.* TO `user`@`localhost`;  </span></li>
+                    </ul>
+
+                    <p>A backup user is created for the backup script to create database backups. This user is only granted permissions to read the database. This can be achieved by executing the following queries:</p>
+                    <ul class="nostyle">
+                        <li>Create user - <span class="obvious">CREATE USER backupuser@localhost IDENTIFIED BY '---A VERY STRONG PASSWORD---';</span></li>
+                        <li>Grant priveleges<span class="obvious">GRANT SELECT, LOCK TABLES ON `forumdb`.* TO `backupuser`@`localhost`;</span></li>
+                    </ul>
+                    <p>SELECT allows this user to only read the database and <em>lock tables</em> is used for the <span class="obvious">mariadb-dump</span> command used in the backup script.</p>
+
+                    <h3>phpBB</h3>
+
+                    <p>phpBB is installed according to the <a href="https://www.phpbb.com/support/docs/en/3.3/ug/quickstart/installation_intro/" target="_blank">phpBB Installation Guide</a>. 
+                        This is pretty straight-forward, download the phpBB archive using a utility such as <em>wget</em>, extract it and move the directory under <span class="obvious">/var/www/html</span>.
+                        Afterward, the file permissions for phpBB have to be correctly set. From there, visiting the forum in a web browser will guide you through finishing the installation.
+                    </p>
+
+                    <h3>Logging</h3>
+
+                    <p>Every time the backup script runs, it logs the success of backups using rsyslog. The entry <span class="obvious">local7.*&nbsp;&nbsp;&nbsp;/var/log/backups.log</span> was appended to the rsyslog configuration file: <span class="obvious">/etc/rsyslog.conf</span>. This will cause the backup logs to be written to <span class="obvious">/var/log/backups.log</span> using the <em>logger</em> command</p>
+                </div>
             </section>
 
             <!-- References section -->
@@ -236,6 +345,7 @@
                                 <ul>
                                     <li><a href="https://wiki.debian.org/LaMp" target="_blank">Debian Wiki - LAMP</a></li>
                                     <li><a href="https://manpages.debian.org/bullseye/mount/fstab.5.en.html" target="_blank">fstab(5) manpage for fstab entry for the backup partition</a></li>
+                                    <li><a href="https://manpages.debian.org/bullseye/rsyslog/rsyslog.conf.5.en.html" target="_blank">rsyslog(5) manpage for backup logfile</a></li>
                                     <li><a href="https://developer.mozilla.org/en-US/docs/Web" target="_blank">Mozilla Developer Network - HTML/CSS Reference</a></li>
                                 </ul>
                             </li>
@@ -274,10 +384,6 @@
                         Section Template
 
                     </p>
-                </div>
-                <div class="section-foot">
-                    <a href="#" class="button primary">Primary Button</a>
-                    <a href="#" class="button secondary">Secondary Button</a>
                 </div>
             </section>
 
